@@ -5,18 +5,16 @@
 #define OTPIN_OUT	5
 #define DOUT_PIN  14
 #define FLOW_TEMP	60.0 //60 Celsius forward water temperature
-#define OTTIMER		997 //1 sec
+#define OTTIMER		1000 //1 sec
 
-const String ADDR1 = "84BF7";
-const String ADDR2 = "E3DF7";
+const String ADDR1 = "D06D7"; //Q3RF
+const String ADDR2 = "B18F7"; //Q7RF
 
 ComputhermRF rf = ComputhermRF(DOUT_PIN, 255);
 OpenTherm ot(OTPIN_IN, OTPIN_OUT, false);
 
 void ProcessOpenTherm(bool boilerON)
-{
-  //Serial.print("Command: ");
-  //Serial.println(boilerON);
+{ 
   unsigned long request;
 
   if (!boilerON)
@@ -38,8 +36,6 @@ void ICACHE_RAM_ATTR handleInterrupt()
 }
 
 void setup() {
-  Serial.begin(115200);
-  delay(100);
   rf.startReceiver();
   ot.begin(handleInterrupt);
 }
@@ -54,11 +50,6 @@ void loop() {
   if (rf.isDataAvailable())
   {
     rf.getData(receivedAddress, receivedCommand);
-    Serial.print("Address: ");
-    Serial.println(receivedAddress);
-    Serial.print("Command: ");
-    Serial.println(receivedCommand);
-    Serial.println();
     if (ADDR1 == receivedAddress)
     {
       command1 = receivedCommand;
