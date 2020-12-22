@@ -3,6 +3,7 @@ Double Computherm receiver to Opentherm master
 
 ## Used libraries:
 https://github.com/ihormelnyk/opentherm_library
+
 https://github.com/denxhun/ComputhermRF
 
 ## HW list
